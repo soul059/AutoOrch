@@ -1,0 +1,32 @@
+{
+  "name": "@autoorch/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@autoorch/shared-schemas": "*",
+    "@autoorch/orchestrator": "*",
+    "@autoorch/policy-engine": "*",
+    "@autoorch/provider-registry": "*",
+    "@autoorch/worker-runtime": "*",
+    "@autoorch/artifact-store": "*",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "pg": "^8.20.0",
+    "uuid": "^13.0.0",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/pg": "^8.18.0",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.21.0"
+  }
+}

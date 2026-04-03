@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../../packages/shared-schemas" },
+    { "path": "../../services/orchestrator" },
+    { "path": "../../services/provider-registry" },
+    { "path": "../../services/policy-engine" },
+    { "path": "../../services/worker-runtime" },
+    { "path": "../../services/artifact-store" }
+  ]
+}
