@@ -1,0 +1,72 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy all package.json files first for caching
+COPY package.json package-lock.json* ./
+COPY tsconfig.base.json ./
+COPY packages/shared-schemas/package.json packages/shared-schemas/
+COPY apps/api/package.json apps/api/
+COPY services/orchestrator/package.json services/orchestrator/
+COPY services/provider-registry/package.json services/provider-registry/
+COPY services/policy-engine/package.json services/policy-engine/
+COPY services/worker-runtime/package.json services/worker-runtime/
+COPY services/artifact-store/package.json services/artifact-store/
+
+# Install all dependencies
+RUN npm ci --ignore-scripts
+
+# Copy all tsconfig files
+COPY packages/shared-schemas/tsconfig.json packages/shared-schemas/
+COPY apps/api/tsconfig.json apps/api/
+COPY services/orchestrator/tsconfig.json services/orchestrator/
+COPY services/provider-registry/tsconfig.json services/provider-registry/
+COPY services/policy-engine/tsconfig.json services/policy-engine/
+COPY services/worker-runtime/tsconfig.json services/worker-runtime/
+COPY services/artifact-store/tsconfig.json services/artifact-store/
+
+# Copy source code
+COPY packages/shared-schemas/ packages/shared-schemas/
+COPY apps/api/ apps/api/
+COPY services/ services/
+
+# Build
+RUN ./node_modules/.bin/tsc -b apps/api/tsconfig.json
+
+FROM node:20-alpine
+WORKDIR /app
+
+# Copy package files for workspace structure
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules node_modules
+
+# Copy built packages with their package.json
+COPY --from=builder /app/packages/shared-schemas/dist packages/shared-schemas/dist
+COPY --from=builder /app/packages/shared-schemas/package.json packages/shared-schemas/
+
+# Copy built services with their package.json
+COPY --from=builder /app/services/orchestrator/dist services/orchestrator/dist
+COPY --from=builder /app/services/orchestrator/package.json services/orchestrator/
+COPY --from=builder /app/services/provider-registry/dist services/provider-registry/dist
+COPY --from=builder /app/services/provider-registry/package.json services/provider-registry/
+COPY --from=builder /app/services/policy-engine/dist services/policy-engine/dist
+COPY --from=builder /app/services/policy-engine/package.json services/policy-engine/
+COPY --from=builder /app/services/worker-runtime/dist services/worker-runtime/dist
+COPY --from=builder /app/services/worker-runtime/package.json services/worker-runtime/
+COPY --from=builder /app/services/artifact-store/dist services/artifact-store/dist
+COPY --from=builder /app/services/artifact-store/package.json services/artifact-store/
+
+# Copy built API
+COPY --from=builder /app/apps/api/dist apps/api/dist
+COPY --from=builder /app/apps/api/package.json apps/api/
+
+# Create symlinks in node_modules for workspace packages
+RUN mkdir -p node_modules/@autoorch && \
+    ln -s /app/packages/shared-schemas node_modules/@autoorch/shared-schemas && \
+    ln -s /app/services/orchestrator node_modules/@autoorch/orchestrator && \
+    ln -s /app/services/provider-registry node_modules/@autoorch/provider-registry && \
+    ln -s /app/services/policy-engine node_modules/@autoorch/policy-engine && \
+    ln -s /app/services/worker-runtime node_modules/@autoorch/worker-runtime && \
+    ln -s /app/services/artifact-store node_modules/@autoorch/artifact-store
+
+EXPOSE 3001
+CMD ["node", "apps/api/dist/server.js"]
