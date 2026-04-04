@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  # ── PostgreSQL ──────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: autoorch-postgres
+    environment:
+      POSTGRES_DB: autoorch
+      POSTGRES_USER: autoorch
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/db/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autoorch"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    secrets:
+      - postgres_password
+
+  # ── API Gateway ─────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.api
+    container_name: autoorch-api
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      WS_PORT: 3002
+      # Database connection (use postgres service name as host)
+      DATABASE_URL: postgresql://autoorch:autoorch_dev_password@postgres:5432/autoorch
+      # Connect to your LOCAL Ollama running on host machine
+      # Windows/Mac: host.docker.internal, Linux: 172.17.0.1
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      ALLOW_LOCAL_PROVIDERS: "true"
+      # Encryption key for API credentials (generate your own for real use)
+      APP_ENCRYPTION_KEY: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    secrets:
+      - postgres_password
+      - gemini_api_key
+      - openai_api_key
+      - database_url
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Allow container to access host network for local Ollama
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # ── Web Dashboard ───────────────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.web
+    container_name: autoorch-web
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://localhost:3001
+      VITE_WS_URL: ws://localhost:3002
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+
+# Docker secrets — create files in infrastructure/secrets/ before deploying
+secrets:
+  postgres_password:
+    file: ./infrastructure/secrets/postgres_password.txt
+  gemini_api_key:
+    file: ./infrastructure/secrets/gemini_api_key.txt
+  openai_api_key:
+    file: ./infrastructure/secrets/openai_api_key.txt
+  database_url:
+    file: ./infrastructure/secrets/database_url.txt

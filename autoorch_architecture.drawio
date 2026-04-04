@@ -1,0 +1,229 @@
+<mxfile host="65bd71144e">
+    <diagram id="autoorch-arch" name="AutoOrch Architecture (Revised)">
+        <mxGraphModel dx="644" dy="323" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2000" pageHeight="1600" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=default;strokeColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                    <mxGeometry x="59.5" y="96" width="1881" height="1404" as="geometry"/>
+                </mxCell>
+                <mxCell id="title" value="AutoOrch Control Plane | Prompt-to-Company Orchestration (Revised)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#111111;strokeColor=#111111;fontColor=#F2F2F2;fontSize=22;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="140" width="1760" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="subtitle" value="Self-hosted multi-agent platform with pluggable providers, strict routing, shared state, sandboxed execution, and human approvals" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B1B1B;strokeColor=#1B1B1B;fontColor=#D0D0D0;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="210" width="1760" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="userPrompt" value="User Prompt&#xa;&quot;Start a drop-shipping business&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#334155;fontColor=#E2E8F0;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="290" width="260" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontendGroup" value="Frontend | Dashboard (React + WebSocket)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;startSize=32;fillColor=#0B3B2E;strokeColor=#14532D;fontColor=#ECFDF5;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="430" width="420" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend1" value="Live Logs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#166534;fontColor=#D1FAE5;" parent="frontendGroup" vertex="1">
+                    <mxGeometry x="20" y="50" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend2" value="Approval Queue (HITL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#166534;fontColor=#D1FAE5;" parent="frontendGroup" vertex="1">
+                    <mxGeometry x="210" y="50" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend3" value="Task Graph / Agent Status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#166534;fontColor=#D1FAE5;" parent="frontendGroup" vertex="1">
+                    <mxGeometry x="20" y="115" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend4" value="Budget Monitor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#166534;fontColor=#D1FAE5;" parent="frontendGroup" vertex="1">
+                    <mxGeometry x="210" y="115" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend5" value="Provider Selection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#166534;fontColor=#D1FAE5;" parent="frontendGroup" vertex="1">
+                    <mxGeometry x="20" y="180" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend6" value="Checkpoint History" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#166534;fontColor=#D1FAE5;" parent="frontendGroup" vertex="1">
+                    <mxGeometry x="210" y="180" width="190" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend7" value="Run Submission + Config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#052E16;strokeColor=#166534;fontColor=#D1FAE5;" parent="frontendGroup" vertex="1">
+                    <mxGeometry x="20" y="248" width="380" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="apiGateway" value="API Gateway | REST + WebSocket/SSE (Node.js)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;startSize=32;fillColor=#1a1a2e;strokeColor=#3730A3;fontColor=#EDE9FE;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="290" width="440" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="api1" value="Run Endpoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="apiGateway" vertex="1">
+                    <mxGeometry x="20" y="45" width="130" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="api2" value="Approval Endpoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="apiGateway" vertex="1">
+                    <mxGeometry x="160" y="45" width="130" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="api3" value="WS/SSE Stream" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="apiGateway" vertex="1">
+                    <mxGeometry x="300" y="45" width="120" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="api4" value="Request Validation + Correlation ID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="apiGateway" vertex="1">
+                    <mxGeometry x="20" y="110" width="400" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="api5" value="API Key Authentication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="apiGateway" vertex="1">
+                    <mxGeometry x="20" y="170" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="api6" value="SSRF Protection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="apiGateway" vertex="1">
+                    <mxGeometry x="220" y="170" width="200" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="orchestratorGroup" value="Orchestration Engine" style="swimlane;whiteSpace=wrap;html=1;rounded=1;startSize=32;fillColor=#1E1B4B;strokeColor=#3730A3;fontColor=#EDE9FE;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="510" width="440" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="orch1" value="Run State Machine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="orchestratorGroup" vertex="1">
+                    <mxGeometry x="20" y="45" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="orch2" value="Task Broker / Dispatcher" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="orchestratorGroup" vertex="1">
+                    <mxGeometry x="225" y="45" width="195" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="orch3" value="Checkpoint Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="orchestratorGroup" vertex="1">
+                    <mxGeometry x="20" y="105" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="orch4" value="Audit Event Emitter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="orchestratorGroup" vertex="1">
+                    <mxGeometry x="225" y="105" width="195" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="orch5" value="Strict JSON Validator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="orchestratorGroup" vertex="1">
+                    <mxGeometry x="20" y="170" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="orch6" value="Retry / Dead-letter Handler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#312E81;strokeColor=#4F46E5;fontColor=#E0E7FF;" parent="orchestratorGroup" vertex="1">
+                    <mxGeometry x="225" y="170" width="195" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="providerGroup" value="Provider Adapter Layer + Registry" style="swimlane;whiteSpace=wrap;html=1;rounded=1;startSize=28;fillColor=#3F1D2E;strokeColor=#9D174D;fontColor=#FDF2F8;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="290" width="420" height="350" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov1" value="Provider Adapter Interface" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="20" y="40" width="380" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov2" value="Ollama Adapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="20" y="95" width="115" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov3" value="Gemini Adapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="150" y="95" width="115" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov4" value="OpenAI Adapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="280" y="95" width="120" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov5" value="Routing Engine&#xa;(user / role-default / local-first / cost-aware / fallback)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="20" y="155" width="380" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov6" value="Health Check + Failover" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="20" y="215" width="175" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov7" value="Capability Metadata" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="210" y="215" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="prov8" value="Universal AI Gateway (10 Presets | Config-Driven)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#831843;strokeColor=#BE185D;fontColor=#FCE7F3;" parent="providerGroup" vertex="1">
+                    <mxGeometry x="20" y="275" width="380" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="policyGroup" value="Policy / Guardrails Engine" style="swimlane;whiteSpace=wrap;html=1;rounded=1;startSize=28;fillColor=#7F1D1D;strokeColor=#B91C1C;fontColor=#FEE2E2;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="620" width="420" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="pol1" value="Risk Classifier (SAFE / ELEVATED / HIGH_RISK / BLOCKED)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#991B1B;strokeColor=#DC2626;fontColor=#FEE2E2;" parent="policyGroup" vertex="1">
+                    <mxGeometry x="20" y="40" width="380" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="pol2" value="Budget Enforcer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#991B1B;strokeColor=#DC2626;fontColor=#FEE2E2;" parent="policyGroup" vertex="1">
+                    <mxGeometry x="20" y="95" width="175" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="pol3" value="Loop Cap + Action Deny" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#991B1B;strokeColor=#DC2626;fontColor=#FEE2E2;" parent="policyGroup" vertex="1">
+                    <mxGeometry x="210" y="95" width="190" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="pol4" value="Approval Gate Controller" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#991B1B;strokeColor=#DC2626;fontColor=#FEE2E2;" parent="policyGroup" vertex="1">
+                    <mxGeometry x="20" y="145" width="380" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="workerGroup" value="Worker Runtime | MCP Sandbox (Docker)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;startSize=32;fillColor=#0C4A6E;strokeColor=#0369A1;fontColor=#E0F2FE;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="850" width="420" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="wrk1" value="Sandbox MCP Server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#075985;strokeColor=#0284C7;fontColor=#E0F2FE;" parent="workerGroup" vertex="1">
+                    <mxGeometry x="20" y="45" width="380" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="wrk2" value="Tool Whitelist Enforcer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#075985;strokeColor=#0284C7;fontColor=#E0F2FE;" parent="workerGroup" vertex="1">
+                    <mxGeometry x="20" y="95" width="175" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="wrk3" value="Artifact Collector" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#075985;strokeColor=#0284C7;fontColor=#E0F2FE;" parent="workerGroup" vertex="1">
+                    <mxGeometry x="210" y="95" width="190" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="wrk4" value="Tools: File R/W | Bash | Web Search | Safe Integrations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#075985;strokeColor=#0284C7;fontColor=#E0F2FE;" parent="workerGroup" vertex="1">
+                    <mxGeometry x="20" y="145" width="380" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="secretsConfig" value="Secrets / Config Manager&#xa;(Docker Secrets + .env + AES-256-GCM Encryption)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#44403C;strokeColor=#78716C;fontColor=#FAFAF9;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="290" width="280" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="artifactStore" value="Artifact Store&#xa;(Local FS / S3-compat)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#44403C;strokeColor=#78716C;fontColor=#FAFAF9;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="380" width="280" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="observability" value="Observability Manager&#xa;(Metrics + Correlation IDs + Health)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#44403C;strokeColor=#78716C;fontColor=#FAFAF9;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="470" width="280" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="dbGroup" value="Data Layer | PostgreSQL (Docker)" style="swimlane;whiteSpace=wrap;html=1;rounded=1;startSize=32;fillColor=#3F3F46;strokeColor=#52525B;fontColor=#FAFAFA;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="1100" width="1380" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="db1" value="Runs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="20" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db2" value="Tasks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="175" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db3" value="Providers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="330" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db4" value="Approvals" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="485" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db5" value="Audit Events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="640" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db6" value="Checkpoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="795" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db7" value="Budget Ledger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="950" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db8" value="Artifacts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="1105" y="55" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db9" value="Provider Mappings + Agent Role Definitions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="20" y="125" width="380" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db10" value="Dead-letter Queue" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="420" y="125" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db11" value="Provider Credentials" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="610" y="125" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db12" value="Gateway Configs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="800" y="125" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="db13" value="Performance Indexes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#27272A;strokeColor=#71717A;fontColor=#F4F4F5;" parent="dbGroup" vertex="1">
+                    <mxGeometry x="990" y="125" width="170" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge1" value="prompt" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;fontColor=#475569;" parent="1" source="userPrompt" target="api1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge2" value="ws logs + approvals" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#16A34A;fontColor=#166534;" parent="1" source="frontendGroup" target="api3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge2b" value="delegates" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;fontColor=#475569;" parent="1" source="apiGateway" target="orchestratorGroup" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge3" value="select provider" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#BE185D;fontColor=#9D174D;" parent="1" source="orchestratorGroup" target="providerGroup" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge4" value="evaluate policy" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#DC2626;fontColor=#B91C1C;" parent="1" source="orchestratorGroup" target="policyGroup" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge5" value="dispatch task" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0284C7;fontColor=#0C4A6E;" parent="1" source="orchestratorGroup" target="workerGroup" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge6" value="read/write state" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#71717A;fontColor=#3F3F46;" parent="1" source="orchestratorGroup" target="dbGroup" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge7" value="persist events" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#71717A;fontColor=#3F3F46;" parent="1" source="orch4" target="db5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge8" value="approval required" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#DC2626;fontColor=#B91C1C;" parent="1" source="policyGroup" target="frontend2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge9" value="credentials" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#78716C;fontColor=#57534E;" parent="1" source="providerGroup" target="secretsConfig" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge10" value="store artifacts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#78716C;fontColor=#57534E;" parent="1" source="workerGroup" target="artifactStore" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
